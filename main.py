@@ -33,26 +33,35 @@ def create_new_offer(offers, products, customers):
     choosing products, and calculating totals.
     """
     selected_products = []
+    #offers = load_data(OFFERS_FILE)
+    #products = load_data(PRODUCTS_FILE)
+    #customers = load_data(CUSTOMERS_FILE)
     
-    offers = load_data(OFFERS_FILE)
-    products = load_data(PRODUCTS_FILE)
-    customers = load_data(CUSTOMERS_FILE)
-    
-    print("Postojeće ponude:", offers)
-    print("Postojeći proizvodi:", products)
-    print("Postojeći kupci:", customers)
+    #print("Postojeće ponude:", offers)
+    #print("Postojeći proizvodi:", products)
+    #print("Postojeći kupci:", customers)
 
     # Omogućite unos kupca
+    customer_index = int(input("Odaberite broj kupca ili unesite 0 za novog: "))
+    if customer_index == 0:
+        new_customer = input("Unesite ime novog kupca: ")
+        customers.append(new_customer)
+        selected_customer = new_customer
+    else:
+        selected_customer = customers[customer_index - 1]
     
     # Izračunajte sub_total, tax i total
-    sub_total = sum(item['price'] * item['quantity'] for item in selected_products)
-    tax = sub_total * 0.25  #PDV je 25%
-    total = sub_total + tax
+
     
     # Dodajte novu ponudu u listu offers
-    
-    return
+    offer_date = input("Unesite datum ponude (YYYY-MM-DD): ")
 
+    new_offer = {
+        "customer": selected_customer,
+        "date": offer_date,
+    }
+    
+    offers.append(new_offer)
 
 
 # TODO: Implementirajte funkciju za upravljanje proizvodima.
