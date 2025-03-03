@@ -58,7 +58,7 @@ def create_new_offer(offers, products, customers):
 
     new_offer = {
         "customer": selected_customer,
-        "date": offer_date,
+        "date": offer_date
     }
     
     offers.append(new_offer)
@@ -70,9 +70,19 @@ def manage_products(products):
     Allows the user to add a new product or modify an existing product.
     """
     # Omogućite korisniku izbor između dodavanja ili izmjene proizvoda
+    
+    print('1. Dodaj novi proizvod')
+    print('2. Izmijeni postojeći proizvod')
+    choice = input('Odaberite (1/2): ')
+
     # Za dodavanje: unesite podatke o proizvodu i dodajte ga u listu products
+    if choice == '1':
+        name = input('Naziv proizvoda: ')
+        price = float(input('Cijena: '))
+        products.append({"name": name, "price": price})
     # Za izmjenu: selektirajte proizvod i ažurirajte podatke
-    pass
+    if choice == '2':
+        pass
 
 
 # TODO: Implementirajte funkciju za upravljanje kupcima.
