@@ -24,16 +24,35 @@ def save_data(filename, data):
         json.dump(data, file, indent=4)
 
 
+offer_number = 1
+
 # TODO: Implementirajte funkciju za kreiranje nove ponude.
 def create_new_offer(offers, products, customers):
     """
     Prompt user to create a new offer by selecting a customer, entering date,
     choosing products, and calculating totals.
     """
+    selected_products = []
+    
+    offers = load_data(OFFERS_FILE)
+    products = load_data(PRODUCTS_FILE)
+    customers = load_data(CUSTOMERS_FILE)
+    
+    print("Postojeće ponude:", offers)
+    print("Postojeći proizvodi:", products)
+    print("Postojeći kupci:", customers)
+
     # Omogućite unos kupca
+    
     # Izračunajte sub_total, tax i total
+    sub_total = sum(item['price'] * item['quantity'] for item in selected_products)
+    tax = sub_total * 0.25  #PDV je 25%
+    total = sub_total + tax
+    
     # Dodajte novu ponudu u listu offers
-    pass
+    
+    return
+
 
 
 # TODO: Implementirajte funkciju za upravljanje proizvodima.
@@ -53,9 +72,36 @@ def manage_customers(customers):
     Allows the user to add a new customer or view all customers.
     """
     # Za dodavanje: omogući unos imena kupca, emaila i unos VAT ID-a
-    # Za pregled: prikaži listu svih kupaca
-    pass
+    customers = load_data(CUSTOMERS_FILE)
+    #print("Postojeći kupci:", customers)
 
+    while True:
+        print()
+        customer_name = input('Upisite ime kupca kojeg zelite dodati u sustav: ')
+        customer_mail = input('Upisite mail kupca kojeg zelite dodati u sustav: ')
+        customer_vat = int(input('Upisite VAT ID kupca kojeg zelite dodati u sustav: ')) 
+        
+        next_customer = input('Zelite li unijeti jos kupaca da/ne: ')
+        
+        if next_customer.lower() != 'da':
+            break
+            
+    # Za pregled: prikaži listu svih kupaca
+        new_customers = {
+            "name" : customer_name,
+            "email" : customer_mail,
+            "vat_id" : customer_vat
+        }
+    
+        customers.append(new_customers)
+        
+    save_data(CUSTOMERS_FILE, customers)
+    
+    print("Ispis kupaca nakon dodavanja:")
+    for customer in customers:
+        print(customer)
+    
+    return customers
 
 # TODO: Implementirajte funkciju za prikaz ponuda.
 def display_offers(offers):
